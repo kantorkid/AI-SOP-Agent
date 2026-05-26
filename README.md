@@ -20,7 +20,7 @@ Built by an AI GRC practitioner with a provisional patent in adversarial machine
 
 ![AI SOP Agent Interface](screenshot.png)
 
-**[Live Demo →](https://your-demo-url-here)**
+**[Live Demo →](https://https://kantorkid.github.io/AI-SOP-Agent/ai-sop-agent.html)**
 
 ---
 
