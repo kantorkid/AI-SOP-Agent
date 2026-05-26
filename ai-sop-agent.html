@@ -629,55 +629,14 @@
     const sopTypes = [...document.querySelectorAll('.form-section:nth-child(3) input:checked')].map(cb => cb.value);
     const frameworks = [...document.querySelectorAll('.form-section:nth-child(4) input:checked')].map(cb => cb.value);
 
-    return `You are an expert AI Governance, Risk, and Compliance practitioner with deep knowledge of NIST AI RMF 1.0, EU AI Act, ISO/IEC 42001, NYC Local Law 144, and related frameworks.
+    return `You are an AI GRC expert. Generate a concise audit-ready SOP in markdown.
 
-Generate a comprehensive, professional, audit-ready Standard Operating Procedure (SOP) document for the following AI system:
+System: ${systemName || 'AI System'} | Owner: ${systemOwner || 'Organization'} | Use Case: ${useCase || 'Not specified'} | Type: ${systemType || 'Not specified'} | EU AI Act Risk: ${riskLevel || 'TBD'} | Context: ${deployContext || 'General'} | Scope: ${geoScope || 'Not specified'}
+SOP Types: ${sopTypes.length > 0 ? sopTypes.join(', ') : 'Pre-deployment assessment'}
+Frameworks: ${frameworks.length > 0 ? frameworks.join(', ') : 'NIST AI RMF'}
+Known Risks: ${knownRisks || 'None'}
 
-SYSTEM DETAILS:
-- System Name: ${systemName || 'AI System'}
-- System Owner: ${systemOwner || 'Organization'}
-- Use Case: ${useCase || 'Not specified'}
-- System Type: ${systemType || 'Not specified'}
-- Description: ${systemDesc || 'Not provided'}
-
-RISK CLASSIFICATION:
-- EU AI Act Risk Level: ${riskLevel || 'To be determined'}
-- Deployment Context: ${deployContext || 'General'}
-- Geographic Scope: ${geoScope || 'Not specified'}
-
-SOP TYPES REQUIRED: ${sopTypes.length > 0 ? sopTypes.join(', ') : 'Pre-deployment assessment'}
-
-COMPLIANCE FRAMEWORKS TO ADDRESS: ${frameworks.length > 0 ? frameworks.join(', ') : 'NIST AI RMF'}
-
-KNOWN RISKS: ${knownRisks || 'None specified'}
-
-SPECIFIC REQUIREMENTS: ${specificReqs || 'None specified'}
-
-Generate a complete, audit-ready SOP document that includes:
-
-1. Document header with metadata (version, owner, review date, classification)
-2. Purpose and scope
-3. Definitions of key terms
-4. Roles and responsibilities with RACI matrix
-5. Step-by-step procedures for each requested SOP type with:
-   - Numbered procedure steps
-   - Decision points and escalation criteria
-   - Required documentation and evidence
-   - Timeframes and cadence
-6. Compliance mapping table showing how each procedure satisfies specific framework requirements (cite specific articles, controls, or functions)
-7. Acceptance criteria and success metrics
-8. Review and update schedule
-9. Sign-off section
-10. Appendices with relevant checklists
-
-The document should be:
-- Immediately usable by a compliance team
-- Specific enough to guide actual implementation
-- Referenced to specific regulatory articles where applicable
-- Professional in tone and format
-- Formatted in clean markdown
-
-Generate the complete SOP now:`;
+Generate a professional SOP with: document header, purpose, roles and responsibilities, numbered procedure steps with evidence requirements and escalation criteria, compliance mapping table citing specific regulatory articles, and sign-off section. Be specific and cite exact articles.`;
   }
 
   async function generateSOP() {
@@ -725,7 +684,7 @@ Generate the complete SOP now:`;
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-5',
-          max_tokens: 2000,
+          max_tokens: 4000,
           messages: [{ role: 'user', content: buildPrompt() }]
         })
       });
